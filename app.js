@@ -1,7 +1,11 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const gameContainer = document.getElementById("game__container");
-  console.log("loading page");
+const gameContainer = document.getElementById("game__container");
 
+document.addEventListener("DOMContentLoaded", () => {
+  createEmptyBoard();
+  renderBoard(sudokuBoard);
+});
+
+function createEmptyBoard() {
   for (let i = 0; i < 81; i++) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
@@ -9,9 +13,36 @@ document.addEventListener("DOMContentLoaded", () => {
     cell.addEventListener("click", onCellClick);
     gameContainer.appendChild(cell);
   }
-});
-function onCellClick(event){
-    const cell = event.target;
-    const index = cell.getAttribute('data-index');
-    console.log(`Cell ${index} click`)
+}
+
+function onCellClick(event) {
+  const cell = event.target;
+  const index = cell.getAttribute("data-index");
+  const row = Math.floor(index / 9);
+  const col = index % 9;
+  const value = sudokuBoard[row][col];
+  console.log(`Cell ${index} clicked. Value: ${value}`);
+}
+
+const sudokuBoard = [
+  [5, 3, 0, 0, 7, 0, 0, 0, 0],
+  [6, 0, 0, 1, 9, 5, 0, 0, 0],
+  [0, 9, 8, 0, 0, 0, 0, 6, 0],
+  [8, 0, 0, 0, 6, 0, 0, 0, 3],
+  [4, 0, 0, 8, 0, 3, 0, 0, 1],
+  [7, 0, 0, 0, 2, 0, 0, 0, 6],
+  [0, 6, 0, 0, 0, 0, 2, 8, 0],
+  [0, 0, 0, 4, 1, 9, 0, 0, 5],
+  [0, 0, 0, 0, 8, 0, 0, 7, 9],
+];
+
+function renderBoard(board) {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell) => {
+    const index = cell.getAttribute("data-index");
+    const row = Math.floor(index / 9);
+    const col = index % 9;
+    const value = board[row][col];
+    cell.textContent = value !== 0 ? value : "";
+  });
 }
