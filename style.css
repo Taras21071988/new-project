@@ -17,6 +17,10 @@
     font-size: 3.5rem;
   }
 }
+.game {
+  display: flex;
+  flex-direction: column;
+}
 .game__wrapper {
   display: flex;
   justify-content: center;
@@ -24,6 +28,7 @@
   height: 75vh;
   margin: 0;
   background-color: #f0f0f0;
+  margin-bottom: 20px;
 }
 #game__container {
   display: grid;
@@ -41,4 +46,20 @@
   background-color: #fff;
   font-size: 1.2em;
   cursor: pointer;
+}
+#number__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.number__button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #000;
+  cursor: pointer;
+  font-size: 1.2em;
 }

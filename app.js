@@ -1,8 +1,11 @@
 const gameContainer = document.getElementById("game__container");
+const numberButtonsContainer = document.getElementById("number__buttons");
 
 document.addEventListener("DOMContentLoaded", () => {
   createEmptyBoard();
   renderBoard(sudokuBoard);
+  createNumberButtons();
+  document.addEventListener("keydown",onPressKey)
 });
 
 function createEmptyBoard() {
@@ -45,4 +48,25 @@ function renderBoard(board) {
     const value = board[row][col];
     cell.textContent = value !== 0 ? value : "";
   });
+}
+
+function createNumberButtons() {
+  for (let i = 1; i <= 9; i++) {
+    const button = document.createElement("div");
+    button.classList.add("number__button");
+    button.textContent = i;
+    button.addEventListener("click", onNumberButtonClick);
+    numberButtonsContainer.appendChild(button);
+  }
+}
+function onNumberButtonClick(event) {
+  const button = event.target;
+  const number = button.textContent;
+  console.log(`Нажал на ${number}`);
+}
+function onPressKey(event) {
+  const key = event.key;
+  if (key >= "1" && key <= "9") {
+    console.log(`Нажата кнопка ${key}`);
+  }
 }
