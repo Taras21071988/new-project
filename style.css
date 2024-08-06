@@ -33,19 +33,24 @@
 #game__container {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-  gap: 1px;
-  width: 368px;
-  background-color: #000;
+  gap: 2px;
+  max-width: 472px;
+  background-color: grey;
+  border: 3px solid #000;
 }
 .cell {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  font-size: 1.2em;
+  font-size: 1.8em;
   cursor: pointer;
+}
+.selected {
+  background-color: grey;
+  filter: brightness(150%);
 }
 #number__buttons {
   display: flex;
@@ -53,13 +58,15 @@
   gap: 10px;
 }
 .number__button {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  border: 1px solid #000;
+  border: 2px solid grey;
   cursor: pointer;
   font-size: 1.2em;
+  font-weight: 700;
 }

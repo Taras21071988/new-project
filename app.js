@@ -1,11 +1,13 @@
 const gameContainer = document.getElementById("game__container");
 const numberButtonsContainer = document.getElementById("number__buttons");
+let selectedCell = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   createEmptyBoard();
+  const sudokuBoard = generateSudokuBoard();
   renderBoard(sudokuBoard);
   createNumberButtons();
-  document.addEventListener("keydown",onPressKey)
+  document.addEventListener("keydown", onPressKey);
 });
 
 function createEmptyBoard() {
@@ -20,24 +22,30 @@ function createEmptyBoard() {
 
 function onCellClick(event) {
   const cell = event.target;
+
+  if (selectedCell) {
+    selectedCell.classList.remove("selected");
+  }
+  cell.classList.add("selected");
   const index = cell.getAttribute("data-index");
+  selectedCell = cell;
   const row = Math.floor(index / 9);
   const col = index % 9;
   const value = sudokuBoard[row][col];
   console.log(`Cell ${index} clicked. Value: ${value}`);
 }
 
-const sudokuBoard = [
-  [5, 3, 0, 0, 7, 0, 0, 0, 0],
-  [6, 0, 0, 1, 9, 5, 0, 0, 0],
-  [0, 9, 8, 0, 0, 0, 0, 6, 0],
-  [8, 0, 0, 0, 6, 0, 0, 0, 3],
-  [4, 0, 0, 8, 0, 3, 0, 0, 1],
-  [7, 0, 0, 0, 2, 0, 0, 0, 6],
-  [0, 6, 0, 0, 0, 0, 2, 8, 0],
-  [0, 0, 0, 4, 1, 9, 0, 0, 5],
-  [0, 0, 0, 0, 8, 0, 0, 7, 9],
-];
+// const sudokuBoard = [
+//   [5, 3, 0, 0, 7, 0, 0, 0, 0],
+//   [6, 0, 0, 1, 9, 5, 0, 0, 0],
+//   [0, 9, 8, 0, 0, 0, 0, 6, 0],
+//   [8, 0, 0, 0, 6, 0, 0, 0, 3],
+//   [4, 0, 0, 8, 0, 3, 0, 0, 1],
+//   [7, 0, 0, 0, 2, 0, 0, 0, 6],
+//   [0, 6, 0, 0, 0, 0, 2, 8, 0],
+//   [0, 0, 0, 4, 1, 9, 0, 0, 5],
+//   [0, 0, 0, 0, 8, 0, 0, 7, 9],
+// ];
 
 function renderBoard(board) {
   const cells = document.querySelectorAll(".cell");
@@ -69,4 +77,59 @@ function onPressKey(event) {
   if (key >= "1" && key <= "9") {
     console.log(`Нажата кнопка ${key}`);
   }
+}
+
+function generateSudokuBoard() {
+  const board = Array.from({ length: 9 }, () => Array(9).fill(0));
+  fillBoard(board);
+  return board;
+}
+
+function fillBoard(board) {
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      if (board[row][col] === 0) {
+        const possibleValues = sfuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        for (let value of possibleValues) {
+          if (isValidMove(board, row, col, value)) {
+            board[row][col] = value;
+            if (fillBoard(board)) {
+              return true;
+            } else {
+              board[row][col] = 0;
+            }
+          }
+        }
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+function isValidMove(board, row, col, value) {
+  for (let i = 0; i < 9; i++) {
+    if (board[row][i] === value || board[i][col] === value) {
+      return false;
+    }
+  }
+  const startRow = Math.floor(row / 3) * 3;
+  const startCol = Math.floor(col / 3) * 3;
+
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[startRow + i][startCol + j] === value) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+function sfuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
