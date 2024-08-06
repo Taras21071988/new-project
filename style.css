@@ -70,3 +70,8 @@
   font-size: 1.2em;
   font-weight: 700;
 }
+#generate__button {
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+}

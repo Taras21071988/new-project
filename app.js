@@ -1,13 +1,15 @@
 const gameContainer = document.getElementById("game__container");
 const numberButtonsContainer = document.getElementById("number__buttons");
 let selectedCell = null;
+const generateButton = document.getElementById("generate__button");
+let sudokuBoard = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   createEmptyBoard();
-  const sudokuBoard = generateSudokuBoard();
-  renderBoard(sudokuBoard);
+  generateNewBoard();
   createNumberButtons();
   document.addEventListener("keydown", onPressKey);
+  generateButton.addEventListener("click", generateNewBoard);
 });
 
 function createEmptyBoard() {
@@ -34,18 +36,6 @@ function onCellClick(event) {
   const value = sudokuBoard[row][col];
   console.log(`Cell ${index} clicked. Value: ${value}`);
 }
-
-// const sudokuBoard = [
-//   [5, 3, 0, 0, 7, 0, 0, 0, 0],
-//   [6, 0, 0, 1, 9, 5, 0, 0, 0],
-//   [0, 9, 8, 0, 0, 0, 0, 6, 0],
-//   [8, 0, 0, 0, 6, 0, 0, 0, 3],
-//   [4, 0, 0, 8, 0, 3, 0, 0, 1],
-//   [7, 0, 0, 0, 2, 0, 0, 0, 6],
-//   [0, 6, 0, 0, 0, 0, 2, 8, 0],
-//   [0, 0, 0, 4, 1, 9, 0, 0, 5],
-//   [0, 0, 0, 0, 8, 0, 0, 7, 9],
-// ];
 
 function renderBoard(board) {
   const cells = document.querySelectorAll(".cell");
@@ -77,6 +67,10 @@ function onPressKey(event) {
   if (key >= "1" && key <= "9") {
     console.log(`Нажата кнопка ${key}`);
   }
+}
+function generateNewBoard() {
+  sudokuBoard = generateSudokuBoard();
+  renderBoard(sudokuBoard);
 }
 
 function generateSudokuBoard() {
