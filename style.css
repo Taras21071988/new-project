@@ -1,3 +1,5 @@
+@import url(boundaries.css);
+
 * {
   background-color: #fff;
   color: #000;
@@ -33,7 +35,7 @@
 #game__container {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-  gap: 2px;
+  gap: 1px;
   max-width: 472px;
   background-color: grey;
   border: 3px solid #000;
@@ -70,8 +72,18 @@
   font-size: 1.2em;
   font-weight: 700;
 }
-#generate__button {
+.buttons__wrapper {
+  display: flex;
+
+  gap: 20px;
+}
+.buttons__level {
+  max-width: 300px;
+  text-align: center;
   padding: 10px 20px;
   font-size: 1em;
   cursor: pointer;
+  border: 2px solid #000;
+  border-radius: 16px;
+  margin-bottom: 10px;
 }

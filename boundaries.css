@@ -1,0 +1,83 @@
+.cell[data-index="27"],
+.cell[data-index="28"],
+.cell[data-index="29"],
+.cell[data-index="30"],
+.cell[data-index="31"],
+.cell[data-index="32"],
+.cell[data-index="33"],
+.cell[data-index="34"],
+.cell[data-index="35"],
+.cell[data-index="54"],
+.cell[data-index="55"],
+.cell[data-index="56"],
+.cell[data-index="57"],
+.cell[data-index="58"],
+.cell[data-index="59"],
+.cell[data-index="60"],
+.cell[data-index="61"],
+.cell[data-index="62"] {
+    border-top: 2px solid #000;
+}
+
+.cell[data-index="3"],
+.cell[data-index="6"],
+.cell[data-index="12"],
+.cell[data-index="15"],
+.cell[data-index="21"],
+.cell[data-index="24"],
+.cell[data-index="30"],
+.cell[data-index="33"],
+.cell[data-index="39"],
+.cell[data-index="42"],
+.cell[data-index="48"],
+.cell[data-index="51"],
+.cell[data-index="57"],
+.cell[data-index="60"],
+.cell[data-index="66"],
+.cell[data-index="69"],
+.cell[data-index="75"],
+.cell[data-index="78"] {
+  border-left: 2px solid #000;
+}
+
+.cell[data-index="2"],
+.cell[data-index="5"],
+.cell[data-index="11"],
+.cell[data-index="14"],
+.cell[data-index="20"],
+.cell[data-index="23"],
+.cell[data-index="29"],
+.cell[data-index="32"],
+.cell[data-index="38"],
+.cell[data-index="41"],
+.cell[data-index="47"],
+.cell[data-index="50"],
+.cell[data-index="56"],
+.cell[data-index="59"],
+.cell[data-index="65"],
+.cell[data-index="68"],
+.cell[data-index="74"],
+.cell[data-index="77"] {
+  border-right: 2px solid #000;
+}
+
+.cell[data-index="18"],
+.cell[data-index="19"],
+.cell[data-index="20"],
+.cell[data-index="21"],
+.cell[data-index="22"],
+.cell[data-index="23"],
+.cell[data-index="24"],
+.cell[data-index="25"],
+.cell[data-index="26"],
+.cell[data-index="45"],
+.cell[data-index="46"],
+.cell[data-index="47"],
+.cell[data-index="48"],
+.cell[data-index="49"],
+.cell[data-index="50"],
+.cell[data-index="51"],
+.cell[data-index="52"],
+.cell[data-index="53"] {
+    border-bottom: 2px solid #000;
+}

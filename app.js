@@ -6,10 +6,10 @@ let sudokuBoard = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   createEmptyBoard();
-  generateNewBoard();
+  // generateNewBoard();
   createNumberButtons();
-  document.addEventListener("keydown", onPressKey);
   generateButton.addEventListener("click", generateNewBoard);
+  document.addEventListener("keydown", onPressKey);
 });
 
 function createEmptyBoard() {
