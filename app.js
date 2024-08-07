@@ -3,6 +3,7 @@ const numberButtonsContainer = document.getElementById("number__buttons");
 const generateButton = document.getElementById("generate__button");
 let selectedCell = null;
 let sudokuBoard = [];
+let originalBoard = [];
 let currentLevel = "light";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -80,7 +81,8 @@ function onPressKey(event) {
   }
 }
 function generateNewBoard() {
-  sudokuBoard = generateSudokuBoard();
+  originalBoard = generateSudokuBoard();
+  sudokuBoard = JSON.parse(JSON.stringify(originalBoard));
   renderBoard(sudokuBoard);
   setDifficulty(currentLevel);
 }
@@ -167,12 +169,12 @@ function setDifficulty(level) {
       sudokuBoard[row][col] = 0;
     } else {
       cell.textContent =
-        sudokuBoard[row][col] !== 0 ? sudokuBoard[row][col] : "";
+        originalBoard[row][col] !== 0 ? originalBoard[row][col] : "";
     }
   }
 }
 
-function changeLevel(level){
+function changeLevel(level) {
   currentLevel = level;
-  generateNewBoard()
+  generateNewBoard();
 }
