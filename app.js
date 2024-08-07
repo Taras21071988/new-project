@@ -158,10 +158,10 @@ function setDifficulty(level) {
 
   const cells = document.querySelectorAll(".cell");
   const indices = Array.from({ length: 81 }, (_, i) => i);
-  shuffle(indices); // Перемешиваем индексы
+  shuffle(indices); 
 
   for (let i = 0; i < 81; i++) {
-    const cell = cells[indices[i]]; // Используем перемешанные индексы
+    const cell = cells[indices[i]];
     const row = Math.floor(indices[i] / 9);
     const col = indices[i] % 9;
     if (i < cellsToHide) {
@@ -172,6 +172,7 @@ function setDifficulty(level) {
         originalBoard[row][col] !== 0 ? originalBoard[row][col] : "";
     }
   }
+  // console.log(originalBoard) Для теста написал
 }
 
 function changeLevel(level) {
