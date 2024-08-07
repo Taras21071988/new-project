@@ -1,15 +1,26 @@
 const gameContainer = document.getElementById("game__container");
 const numberButtonsContainer = document.getElementById("number__buttons");
-let selectedCell = null;
 const generateButton = document.getElementById("generate__button");
+let selectedCell = null;
 let sudokuBoard = [];
+let currentLevel = "light";
 
 document.addEventListener("DOMContentLoaded", () => {
   createEmptyBoard();
-  // generateNewBoard();
   createNumberButtons();
   generateButton.addEventListener("click", generateNewBoard);
   document.addEventListener("keydown", onPressKey);
+  document
+    .getElementById("level__light")
+    .addEventListener("click", () => setDifficulty("light"));
+  document
+    .getElementById("level__medium")
+    .addEventListener("click", () => setDifficulty("medium"));
+  document
+    .getElementById("level__hard")
+    .addEventListener("click", () => setDifficulty("hard"));
+
+  // document.getElementById("level__light").addEventListener('click',)
 });
 
 function createEmptyBoard() {
@@ -71,6 +82,7 @@ function onPressKey(event) {
 function generateNewBoard() {
   sudokuBoard = generateSudokuBoard();
   renderBoard(sudokuBoard);
+  setDifficulty(currentLevel);
 }
 
 function generateSudokuBoard() {
@@ -83,7 +95,7 @@ function fillBoard(board) {
   for (let row = 0; row < 9; row++) {
     for (let col = 0; col < 9; col++) {
       if (board[row][col] === 0) {
-        const possibleValues = sfuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        const possibleValues = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
         for (let value of possibleValues) {
           if (isValidMove(board, row, col, value)) {
             board[row][col] = value;
@@ -120,10 +132,42 @@ function isValidMove(board, row, col, value) {
   return true;
 }
 
-function sfuffle(array) {
+function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
+}
+
+function setDifficulty(level) {
+  let cellsToHide;
+  switch (level) {
+    case "light":
+      cellsToHide = 20;
+      break;
+    case "medium":
+      cellsToHide = 40;
+      break;
+    case "hard":
+      cellsToHide = 60;
+      break;
+  }
+
+  const cells = document.querySelectorAll(".cell");
+  const indices = Array.from({ length: 81 }, (_, i) => i);
+  shuffle(indices); // Перемешиваем индексы
+
+  for (let i = 0; i < 81; i++) {
+    const cell = cells[indices[i]]; // Используем перемешанные индексы
+    const row = Math.floor(indices[i] / 9);
+    const col = indices[i] % 9;
+    if (i < cellsToHide) {
+      cell.textContent = "";
+      sudokuBoard[row][col] = 0;
+    } else {
+      cell.textContent =
+        sudokuBoard[row][col] !== 0 ? sudokuBoard[row][col] : "";
+    }
+  }
 }
