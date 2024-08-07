@@ -12,13 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", onPressKey);
   document
     .getElementById("level__light")
-    .addEventListener("click", () => setDifficulty("light"));
+    .addEventListener("click", () => changeLevel("light"));
   document
     .getElementById("level__medium")
-    .addEventListener("click", () => setDifficulty("medium"));
+    .addEventListener("click", () => changeLevel("medium"));
   document
     .getElementById("level__hard")
-    .addEventListener("click", () => setDifficulty("hard"));
+    .addEventListener("click", () => changeLevel("hard"));
 
   // document.getElementById("level__light").addEventListener('click',)
 });
@@ -170,4 +170,9 @@ function setDifficulty(level) {
         sudokuBoard[row][col] !== 0 ? sudokuBoard[row][col] : "";
     }
   }
+}
+
+function changeLevel(level){
+  currentLevel = level;
+  generateNewBoard()
 }
