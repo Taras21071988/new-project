@@ -78,36 +78,46 @@ function createNumberButtons() {
 
 function onNumberButtonClick(event) {
   const button = event.target;
-  const number = button.textContent;
+  const number = parseInt(button.textContent);
 
   if (selectedCell) {
     const index = selectedCell.getAttribute("data-index");
     const row = Math.floor(index / 9);
     const col = index % 9;
 
-    // Проверяем, пуста ли ячейка
-    if (sudokuBoard[row][col] === 0) {
-      selectedCell.textContent = number;
-      selectedCell.classList.add("user-input"); // Добавляем класс пользовательского ввода
-      sudokuBoard[row][col] = parseInt(number); // Обновляем массив доски
+    if (sudokuBoard[row][col] === 0) { // Проверяем, пуста ли ячейка
+      if (number === originalBoard[row][col]) { // Проверяем корректность ввода
+        selectedCell.textContent = number;
+        selectedCell.classList.add("user-input");
+        sudokuBoard[row][col] = number; // Обновляем массив доски
+      } else {
+        alert("Ошибка: введено неверное значение!");
+      }
     } else {
       console.log(`Ячейка уже заполнена значением ${sudokuBoard[row][col]}`);
     }
   }
 }
+
 function onPressKey(event) {
   const key = event.key;
+
   if (key >= "1" && key <= "9") {
+    const number = parseInt(key);
+
     if (selectedCell) {
       const index = selectedCell.getAttribute("data-index");
       const row = Math.floor(index / 9);
       const col = index % 9;
 
-      // Проверяем, пуста ли ячейка
-      if (sudokuBoard[row][col] === 0) {
-        selectedCell.textContent = key;
-        selectedCell.classList.add("user-input"); // Добавляем класс пользовательского ввода
-        sudokuBoard[row][col] = parseInt(key); // Обновляем массив доски
+      if (sudokuBoard[row][col] === 0) { // Проверяем, пуста ли ячейка
+        if (number === originalBoard[row][col]) { // Проверяем корректность ввода
+          selectedCell.textContent = number;
+          selectedCell.classList.add("user-input");
+          sudokuBoard[row][col] = number; // Обновляем массив доски
+        } else {
+          alert("Ошибка: введено неверное значение!");
+        }
       } else {
         console.log(`Ячейка уже заполнена значением ${sudokuBoard[row][col]}`);
       }
