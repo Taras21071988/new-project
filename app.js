@@ -2,9 +2,11 @@ const gameContainer = document.getElementById("game__container");
 const numberButtonsContainer = document.getElementById("number__buttons");
 const generateButton = document.getElementById("generate__button");
 let selectedCell = null;
+let currentLevel = "light";
+let errorCount = 0;
+const maxErrors = 3;
 let sudokuBoard = [];
 let originalBoard = [];
-let currentLevel = "light";
 
 document.addEventListener("DOMContentLoaded", () => {
   createEmptyBoard();
@@ -20,8 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("level__hard")
     .addEventListener("click", () => changeLevel("hard"));
-
-  // document.getElementById("level__light").addEventListener('click',)
 });
 
 function createEmptyBoard() {
@@ -34,9 +34,38 @@ function createEmptyBoard() {
   }
 }
 
+function checkInput(row, col, number) {
+  if (number === originalBoard[row][col]) {
+    selectedCell.textContent = number;
+    selectedCell.classList.add("user-input");
+    sudokuBoard[row][col] = number;
+    return true;
+  } else {
+    errorCount++;
+    updateErrorCounter();
+    alert("Ошибка: введено неверное значение!");
+    if (errorCount >= maxErrors) {
+      alert("Игра оконченна, Превышенно количество ошибок!!!");
+      resetGame();
+    }
+  }
+}
+
+function updateErrorCounter() {
+  const errorCounterElement = document.getElementById("error__counter");
+  errorCounterElement.textContent = `Ошибки: ${errorCount}/3`;
+}
+
+function resetGame() {
+  sudokuBoard = Array.from({ length: 9 }, () => Array(9).fill(0));
+  originalBoard = [];
+  renderBoard(sudokuBoard);
+  errorCount = 0;
+  updateErrorCounter();
+}
+
 function onCellClick(event) {
   const cell = event.target;
-
   if (selectedCell) {
     selectedCell.classList.remove("selected");
   }
@@ -57,7 +86,7 @@ function renderBoard(board) {
     const col = index % 9;
     const value = board[row][col];
 
-    cell.classList.remove("user-input"); // Убираем класс пользовательского ввода
+    cell.classList.remove("user-input");
     if (value !== 0) {
       cell.textContent = value;
     } else {
@@ -85,14 +114,8 @@ function onNumberButtonClick(event) {
     const row = Math.floor(index / 9);
     const col = index % 9;
 
-    if (sudokuBoard[row][col] === 0) { // Проверяем, пуста ли ячейка
-      if (number === originalBoard[row][col]) { // Проверяем корректность ввода
-        selectedCell.textContent = number;
-        selectedCell.classList.add("user-input");
-        sudokuBoard[row][col] = number; // Обновляем массив доски
-      } else {
-        alert("Ошибка: введено неверное значение!");
-      }
+    if (sudokuBoard[row][col] === 0) {
+      checkInput(row, col, number);
     } else {
       console.log(`Ячейка уже заполнена значением ${sudokuBoard[row][col]}`);
     }
@@ -110,14 +133,8 @@ function onPressKey(event) {
       const row = Math.floor(index / 9);
       const col = index % 9;
 
-      if (sudokuBoard[row][col] === 0) { // Проверяем, пуста ли ячейка
-        if (number === originalBoard[row][col]) { // Проверяем корректность ввода
-          selectedCell.textContent = number;
-          selectedCell.classList.add("user-input");
-          sudokuBoard[row][col] = number; // Обновляем массив доски
-        } else {
-          alert("Ошибка: введено неверное значение!");
-        }
+      if (sudokuBoard[row][col] === 0) {
+        checkInput(row, col, number);
       } else {
         console.log(`Ячейка уже заполнена значением ${sudokuBoard[row][col]}`);
       }

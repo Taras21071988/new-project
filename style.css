@@ -27,7 +27,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 75vh;
+  height: 65vh;
   margin: 0;
   background-color: #f0f0f0;
   margin-bottom: 20px;
@@ -53,6 +53,10 @@
 .selected {
   background-color: grey;
   filter: brightness(150%);
+}
+#error__counter {
+  text-align: center;
+  margin-bottom: 10px;
 }
 #number__buttons {
   display: flex;
@@ -81,7 +85,7 @@
   max-width: 300px;
   text-align: center;
   padding: 10px 20px;
-  font-size: 1em;
+  font-size: 1.3em;
   cursor: pointer;
   border: 2px solid #000;
   border-radius: 16px;
