@@ -49,17 +49,6 @@ function onCellClick(event) {
   console.log(`Cell ${index} clicked. Value: ${value}`);
 }
 
-// function renderBoard(board) {
-//   const cells = document.querySelectorAll(".cell");
-//   cells.forEach((cell) => {
-//     const index = cell.getAttribute("data-index");
-//     const row = Math.floor(index / 9);
-//     const col = index % 9;
-//     const value = board[row][col];
-//     cell.textContent = value !== 0 ? value : "";
-//   });
-// }
-
 function renderBoard(board) {
   const cells = document.querySelectorAll(".cell");
   cells.forEach((cell) => {
@@ -68,7 +57,7 @@ function renderBoard(board) {
     const col = index % 9;
     const value = board[row][col];
 
-    cell.classList.remove("user-input");  // Убираем класс пользовательского ввода
+    cell.classList.remove("user-input"); // Убираем класс пользовательского ввода
     if (value !== 0) {
       cell.textContent = value;
     } else {
@@ -99,7 +88,7 @@ function onNumberButtonClick(event) {
     // Проверяем, пуста ли ячейка
     if (sudokuBoard[row][col] === 0) {
       selectedCell.textContent = number;
-      selectedCell.classList.add("user-input");  // Добавляем класс пользовательского ввода
+      selectedCell.classList.add("user-input"); // Добавляем класс пользовательского ввода
       sudokuBoard[row][col] = parseInt(number); // Обновляем массив доски
     } else {
       console.log(`Ячейка уже заполнена значением ${sudokuBoard[row][col]}`);
@@ -117,7 +106,7 @@ function onPressKey(event) {
       // Проверяем, пуста ли ячейка
       if (sudokuBoard[row][col] === 0) {
         selectedCell.textContent = key;
-        selectedCell.classList.add("user-input");  // Добавляем класс пользовательского ввода
+        selectedCell.classList.add("user-input"); // Добавляем класс пользовательского ввода
         sudokuBoard[row][col] = parseInt(key); // Обновляем массив доски
       } else {
         console.log(`Ячейка уже заполнена значением ${sudokuBoard[row][col]}`);
