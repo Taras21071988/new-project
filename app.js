@@ -38,9 +38,12 @@ function checkInput(row, col, number) {
   if (number === originalBoard[row][col]) {
     selectedCell.textContent = number;
     selectedCell.classList.add("user-input");
+    selectedCell.classList.remove("error-input");
     sudokuBoard[row][col] = number;
     return true;
   } else {
+    selectedCell.textContent = number;
+    selectedCell.classList.add("error-input");
     errorCount++;
     updateErrorCounter();
     alert("Ошибка: введено неверное значение!");
