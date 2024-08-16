@@ -76,9 +76,17 @@
   font-size: 1.2em;
   font-weight: 700;
 }
+.delete__button {
+  width: 150px;
+  border-radius: 31px;
+  transition: all 0.3s;
+}
+.delete__button:hover {
+  color: red;
+  border: 2px solid red;
+}
 .buttons__wrapper {
   display: flex;
-
   gap: 20px;
 }
 .buttons__level {

@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("level__hard")
     .addEventListener("click", () => changeLevel("hard"));
 });
+document.getElementById("delete__button").addEventListener("click", () => {
+  removeErrorValue();
+});
 
 function createEmptyBoard() {
   for (let i = 0; i < 81; i++) {
@@ -243,4 +246,16 @@ function setDifficulty(level) {
 function changeLevel(level) {
   currentLevel = level;
   generateNewBoard();
+}
+
+function removeErrorValue() {
+  if (selectedCell && selectedCell.classList.contains("error-input")) {
+    const index = selectedCell.getAttribute("data-index");
+    const row = Math.floor(index / 9);
+    const col = index % 9;
+
+    sudokuBoard[row][col] = 0;
+    selectedCell.textContent = "";
+    selectedCell.classList.remove("error-input");
+  }
 }
