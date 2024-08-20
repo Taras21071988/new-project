@@ -105,7 +105,7 @@ function renderBoard(board) {
 
     cell.classList.remove("user-input");
     cell.classList.remove("error-input");
-    
+
     if (value !== 0) {
       cell.textContent = value;
     } else {
@@ -164,6 +164,7 @@ function onPressKey(event) {
 function generateNewBoard() {
   originalBoard = generateSudokuBoard();
   sudokuBoard = JSON.parse(JSON.stringify(originalBoard));
+  selectedCell = null;
   renderBoard(sudokuBoard);
   setDifficulty(currentLevel);
   startTimer();
@@ -275,6 +276,8 @@ function removeErrorValue() {
 }
 
 function startTimer() {
+  stopTimer();
+
   secondsElapsed = 0;
   updateTimerDisplay();
   timer = setInterval(() => {
