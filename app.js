@@ -7,6 +7,8 @@ let errorCount = 0;
 const maxErrors = 3;
 let sudokuBoard = [];
 let originalBoard = [];
+let timer;
+let secondsElapsed = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
   createEmptyBoard();
@@ -43,6 +45,11 @@ function checkInput(row, col, number) {
     selectedCell.classList.add("user-input");
     selectedCell.classList.remove("error-input");
     sudokuBoard[row][col] = number;
+
+    if (isGameComplete()) {
+      stopTimer();
+      alert("Поздравляем! Вы завершили игру.");
+    }
     return true;
   } else {
     selectedCell.textContent = number;
@@ -51,10 +58,14 @@ function checkInput(row, col, number) {
     updateErrorCounter();
     alert("Ошибка: введено неверное значение!");
     if (errorCount >= maxErrors) {
+      stopTimer();
       alert("Игра оконченна, Превышенно количество ошибок!!!");
       resetGame();
     }
   }
+}
+function isGameComplete() {
+  return sudokuBoard.every((row) => row.every((cell) => cell !== 0));
 }
 
 function updateErrorCounter() {
@@ -153,6 +164,7 @@ function generateNewBoard() {
   sudokuBoard = JSON.parse(JSON.stringify(originalBoard));
   renderBoard(sudokuBoard);
   setDifficulty(currentLevel);
+  startTimer();
 }
 
 function generateSudokuBoard() {
@@ -258,4 +270,25 @@ function removeErrorValue() {
     selectedCell.textContent = "";
     selectedCell.classList.remove("error-input");
   }
+}
+
+function startTimer() {
+  secondsElapsed = 0;
+  updateTimerDisplay();
+  timer = setInterval(() => {
+    secondsElapsed++;
+    updateTimerDisplay();
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timer);
+}
+
+function updateTimerDisplay() {
+  const minutes = Math.floor(secondsElapsed / 60);
+  const seconds = secondsElapsed % 60;
+  document.getElementById("timer").textContent = `Время ${minutes
+    .toString()
+    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 }

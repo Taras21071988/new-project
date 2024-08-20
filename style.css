@@ -12,6 +12,9 @@
   width: 1200px;
   margin: 0 auto;
 }
+#timer{
+  text-align: center;
+}
 .text__wrapper {
   padding: 20px 0;
   h1 {
