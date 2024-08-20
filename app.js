@@ -104,6 +104,8 @@ function renderBoard(board) {
     const value = board[row][col];
 
     cell.classList.remove("user-input");
+    cell.classList.remove("error-input");
+    
     if (value !== 0) {
       cell.textContent = value;
     } else {
